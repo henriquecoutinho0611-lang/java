@@ -1,37 +1,37 @@
-public class produtos {
+
+
+
+public class Produtos {
 
     String nome;
     int largura;
     int altura;
     int profundidade;
     String descricao;
+    String obs ;
   }
 
 
 class produtosController {
-
+   int cantador = 0;
    Validacao validacao = new Validacao();
-   produtos[] listaprodutos = new produtos[100];
-   int contador = -1;
-
-  public void coletaDados(){
+   
+   public void coletaDados(){
+   Banco banco = new Banco();
  
+     while (true) {
 
-     
-
-  while (true) {
-
-produtos produto = new produtos();
+  Produtos produto = new Produtos();
 
      produto.nome = validacao.validarString("Digite o nome do produto");
      produto.largura = validacao.validarInt("Digite a largura do produto");
      produto.altura = validacao.validarInt("Digite a altura do produto");
      produto.profundidade = validacao.validarInt("Digite a profundidade do produto");
      produto.descricao = validacao.validarString("Digite a descrição do produto");
- 
-     listaprodutos[contador] = produto;
-     contador++;
+     produto.obs = validacao.validarString("Digite a descrição do produto");
 
+     banco.insert(produto.nome, produto.largura, produto.altura, produto.profundidade, produto.descricao, produto.obs);
+    
      boolean continuar = validacao.validarSimNao("Deseja cadastrar outro produto? (sim/nao)");
       if(!continuar){
         break;
@@ -39,11 +39,11 @@ produtos produto = new produtos();
     }
   
   }
-
+}
 /**
  * 
  */
-public void deletaProduto(){
+/**public void deletaProduto(){
  
  String nomeproduto = validacao.validarString("Digite o nome do produto que deseja deletar");
       
@@ -83,7 +83,7 @@ public void deletaProduto(){
 
 
 } 
-public void listaProdutos(){
+ public void listaProdutos(){
 
   if(contador >= 0){
 
@@ -112,6 +112,6 @@ public void listaProdutos(){
 
 
 
-
+*/
 
   

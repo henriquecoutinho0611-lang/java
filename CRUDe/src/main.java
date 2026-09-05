@@ -1,15 +1,12 @@
 
 
-public class main {
+public class Main {
      Validacao validacao = new Validacao();
 
  public static void main(){
     produtosController produtos = new produtosController();
 
     produtos.coletaDados();
-    produtos.listaProdutos();
-    produtos.deletaProduto();
-    produtos.listaProdutos();
-    
+   
     }
 }
