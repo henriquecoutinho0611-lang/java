@@ -1,15 +1,15 @@
 
 
 public class main {
+     Validacao validacao = new Validacao();
 
  public static void main(){
-    validacao validacao = new validacao();
+    produtosController produtos = new produtosController();
 
-    String nome = validacao.validarString("qual e o seu nome?");
-    System.out.println("seu nome e " + nome);
-
-    int numero = validacao.ValidarInt(" Digite o número");
-    System.out.println("o seu numero foi " + numero);
-
+    produtos.coletaDados();
+    produtos.listaProdutos();
+    produtos.deletaProduto();
+    produtos.listaProdutos();
+    
     }
 }
