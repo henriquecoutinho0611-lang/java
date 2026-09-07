@@ -13,7 +13,7 @@ public class Produtos {
 
 
 class produtosController {
-   int cantador = 0;
+
    Validacao validacao = new Validacao();
    
    public void coletaDados(){
@@ -40,10 +40,9 @@ class produtosController {
   
   }
 }
-/**
- * 
- */
-/**public void deletaProduto(){
+
+
+/** public void deletaProduto(){
  
  String nomeproduto = validacao.validarString("Digite o nome do produto que deseja deletar");
       
