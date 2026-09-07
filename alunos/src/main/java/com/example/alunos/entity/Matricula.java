@@ -15,7 +15,7 @@ public class Matricula extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Id;
+    private Long id;
     private String codigoMatricula;
     private  String nomeCurso;
     private LocalDate dataInicio;

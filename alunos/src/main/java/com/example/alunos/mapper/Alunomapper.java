@@ -5,14 +5,14 @@ import com.example.alunos.dto.AlunoResponse;
 import com.example.alunos.dto.MatriculaDTO;
 import com.example.alunos.entity.Aluno;
 import com.example.alunos.entity.Matricula;
-import com.sun.tools.javac.util.List;
+import java.util.List;
 import org.springframework.stereotype.Component;
 
 
 @Component
 public class Alunomapper {
 
-    public Aluno toEntity(AlunoRequest request, Matricula matricula) {
+    public Aluno toEntity(AlunoRequest request) {
         Aluno aluno = new Aluno();
         aluno.setNome(request.nome());
         aluno.setDataNascimento(request.dataNascimento());
@@ -20,9 +20,9 @@ public class Alunomapper {
 
         List<Matricula> matriculas = request.matriculas().stream().map(m -> {
             Matricula matricula = new Matricula();
-            matricula.setCodigoMatricula(m.getCodigoMatricula());
-            matricula.setDataInicio(m.getDataInicio());
-            matricula.setNomeCurso(m.getNomeCurso());
+            matricula.setCodigoMatricula(m.codigoMatricula());
+            matricula.setDataInicio(m.dataInicio());
+            matricula.setNomeCurso(m.nomeCurso());
 
             return matricula;
         }).toList();

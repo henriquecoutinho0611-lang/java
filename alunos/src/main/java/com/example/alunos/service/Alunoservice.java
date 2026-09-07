@@ -7,7 +7,7 @@ import com.example.alunos.entity.Aluno;
 import com.example.alunos.entity.Matricula;
 import com.example.alunos.mapper.Alunomapper;
 import com.example.alunos.repository.AlunoRepository;
-import com.sun.tools.javac.util.List;
+import java.util.List;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -21,37 +21,37 @@ public class Alunoservice {
        this.alunomapper = alunomapper;
 
    }
-   public Alunoservice salvar(AlunoRequest resquest) {
-       Aluno aluno = alunomapper.toEntity(resquest);
+   public AlunoResponse salvar(AlunoRequest request) {
+       Aluno aluno = alunomapper.toEntity(request);
        alunoRepository.save(aluno);
        return alunomapper.toResponse(aluno);
 
    }
-   public List<AlunoResponse> ListaTodos(){
+   public List<AlunoResponse> listaTodos(){
        return alunoRepository.findAll().stream().map(alunomapper::toResponse).toList();
    }
-   public List<MatriculaDTO> listamatricola(Long id){
+   public List<MatriculaDTO> listarMatriculas(Long id){
        Aluno aluno = alunoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("aluno nao encontado"));
        return aluno.getMatriculas().stream().map(m -> new MatriculaDTO(m.getCodigoMatricula(), m.getNomeCurso(),m.getDataInicio())).toList();
 
    }
    public void remover(Long id){
-       if(!alunoRepository.findById(id)){
+       if(!alunoRepository.findById(id).isPresent()){
            throw new EntityNotFoundException("aluno nao encontrado");
        }
        alunoRepository.deleteById(id);
    }
- public  AlunoResponse atualizar(long id,AlunoRequest resquest){
+ public  AlunoResponse atualizar(long id, AlunoRequest request){
      Aluno a = alunoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("aluno nao encontado"));
-     a.setNome(resquest.nome());
-     a.setTelefone(resquest.telefone());
-     a.setDataNascimento(resquest.dataNascimento());
+     a.setNome(request.nome());
+     a.setTelefone(request.telefone());
+     a.setDataNascimento(request.dataNascimento());
 
-     for( MatriculaDTO m : resquest.matriculas()){
+     for( MatriculaDTO m : request.matriculas()){
          Matricula matricula = new Matricula();
          matricula.setCodigoMatricula(m.codigoMatricula());
          matricula.setNomeCurso(m.nomeCurso());
-         matricula.setDataInicio(m.DataInicio());
+         matricula.setDataInicio(m.dataInicio());
          a.getMatriculas().add(matricula);
      }
 
