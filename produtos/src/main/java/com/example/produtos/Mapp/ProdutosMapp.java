@@ -2,40 +2,36 @@ package com.example.produtos.Mapp;
 
 import com.example.produtos.DTO.Response.ProdutoResponse;
 import com.example.produtos.DTO.request.ProdutoRequest;
-import com.example.produtos.Repository.ProdutoRepository;
 import com.example.produtos.entity.Produtos;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 public class ProdutosMapp {
     
-    public Produtos toEntity( ProdutoRequest Request) {
+    public Produtos toEntity(ProdutoRequest request) {
         Produtos produto = new Produtos();
-        produto.setNome(Request.nome());
-        produto.setDescricao(Request.descricao());
-        produto.setAltura(Request.altura());
-        produto.setComprimento(Request.comprimento());
-        produto.setProfundidade(Request.profundidade());
-        produto.setCategoria(Request.categoria());
-        produto.setObservacao(Request.observacoes());
-        produto.setLargura(Request.largura());
-        
+        produto.setNome(request.nome());
+        produto.setDescricao(request.descricao());
+        produto.setAltura(request.altura());
+        produto.setComprimento(request.comprimento());
+        produto.setProfundidade(request.profundidade());
+        produto.setCategoria(request.categoria());
+        produto.setObservacao(request.observacao());
+        produto.setLargura(request.largura());
         return produto;
     }
-    public ProdutoResponse toResponse(Produtos produtos){
-        List<produtos> produtosList = ProdutoRepository.findAll();
-
-        return  produtosList.stream().map(m -> new ProdutoResponse(produtos.getId(), produtos.getNome(), produtos.getLargura(), produtos.getAltura(), produtos.getObservacao(), produtos.getProfundidade(), produtos.getCategoria(), produtos.getComprimento(), produtos.getObservacao())).toList();
-        
-        
-        
-        
-        
-        
+    
+    public ProdutoResponse toResponse(Produtos produto) {
+        return new ProdutoResponse(
+            produto.getId(),
+            produto.getNome(),
+            produto.getLargura(),
+            produto.getAltura(),
+            produto.getComprimento(),
+            produto.getProfundidade(),
+            produto.getCategoria(),
+            produto.getDescricao(),
+            produto.getObservacao()
+        );
     }
-    
-    
-
 }
