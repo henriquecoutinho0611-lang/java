@@ -15,9 +15,13 @@ import java.time.LocalDate;
 @Setter
 public class Empregado {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private BigDecimal salario;
     private boolean conducao;
     private int diasTrabalhados;
     private int mesesTrabalhados;
-    private int anoTrabalhados;
+    private int anosTrabalhados;
 }
