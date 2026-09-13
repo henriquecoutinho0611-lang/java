@@ -1,4 +1,4 @@
-package com.example.caculosTrabalista;
+package com.example.caculosTrabalista.contoller;
 
 import com.example.caculosTrabalista.entity.Empregado;
 import com.example.caculosTrabalista.service.EmpregadoService;
