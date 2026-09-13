@@ -7,26 +7,15 @@ import java.math.BigDecimal;
 
 @Service
 public class EmpregadoService {
-    private final Empregado empregado;
 
-    public EmpregadoService(Empregado empregado) {
-        this.empregado = empregado;
-
-    }
-
-    public BigDecimal SalarioLIquido(Empregado empregado) {
+    public BigDecimal salarioLiquido(Empregado empregado) {
         BigDecimal salario = empregado.getSalario();
         boolean conducao = empregado.isConducao();
+
         if(conducao){
-            salario = salario.multiply(BigDecimal.valueOf(0.94));
-
-          return salario;
+            return salario.multiply(BigDecimal.valueOf(0.94));
         }
-        else {
-           return salario = salario;
-        }
-
+        return salario;
     }
-
 
 }
