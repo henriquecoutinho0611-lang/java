@@ -21,5 +21,23 @@ public class EmpregadoService {
         }
         return null;
     }
+    public BigDecimal decinoTeceiro(Empregado empregado) {
+        BigDecimal salario = empregado.getSalario();
+        int mesesTrabalhados = empregado.getMesesTrabalhados();
+        try {
+        if(mesesTrabalhados <= 12){
+           BigDecimal posetagem = salario.divide(BigDecimal.valueOf(12));
+           BigDecimal decinoTeceiro =  new BigDecimal(String.valueOf(posetagem.multiply(BigDecimal.valueOf(mesesTrabalhados))));
+           return decinoTeceiro.multiply(BigDecimal.valueOf(0.925));
+        }} catch (Exception e) {
+            throw new RuntimeException("numero invalido");
+        }
+
+        return null;
+    }
+
+
 
 }
+
+
