@@ -24,8 +24,8 @@ public class Controller {
         return empregadoService.salarioLiquido(empregado);
     }
 
-    @PostMapping("/1")
-    public BigDecimal calcularTeceiro(@RequestBody Empregado empregado){
+    @PostMapping("/c")
+    public BigDecimal calcularD(@RequestBody Empregado empregado){
         return empregadoService.decinoTeceiro(empregado);
     }
 

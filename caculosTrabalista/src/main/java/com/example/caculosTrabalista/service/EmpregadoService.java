@@ -4,6 +4,7 @@ import com.example.caculosTrabalista.entity.Empregado;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Service
 public class EmpregadoService {
@@ -24,14 +25,12 @@ public class EmpregadoService {
     public BigDecimal decinoTeceiro(Empregado empregado) {
         BigDecimal salario = empregado.getSalario();
         int mesesTrabalhados = empregado.getMesesTrabalhados();
-        try {
         if(mesesTrabalhados <= 12){
-           BigDecimal posetagem = salario.divide(BigDecimal.valueOf(12));
-           BigDecimal decinoTeceiro =  new BigDecimal(String.valueOf(posetagem.multiply(BigDecimal.valueOf(mesesTrabalhados))));
-           return decinoTeceiro.multiply(BigDecimal.valueOf(0.925));
-        }} catch (Exception e) {
-            throw new RuntimeException("numero invalido");
+           BigDecimal valorMes = salario.divide(BigDecimal.valueOf(12),2, RoundingMode.HALF_UP);
+           BigDecimal decinoTeceiro = valorMes.multiply(BigDecimal.valueOf(mesesTrabalhados));
+           return decinoTeceiro.multiply(new BigDecimal("0.925"));
         }
+
 
         return null;
     }
