@@ -8,7 +8,6 @@ import com.example.alunos.entity.Matricula;
 import java.util.List;
 import org.springframework.stereotype.Component;
 
-
 @Component
 public class Alunomapper {
 
@@ -30,12 +29,12 @@ public class Alunomapper {
         return aluno;
     }
 
-
     public AlunoResponse toResponse(Aluno aluno) {
-        List<MatriculaDTO> matriculaDTOS = aluno.getMatriculas().stream().map(m ->
-           new  MatriculaDTO(m.getCodigoMatricula(), m.getNomeCurso(),m.getDataInicio())).toList();
+        List<MatriculaDTO> matriculaDTOS = aluno.getMatriculas().stream()
+                .map(m -> new MatriculaDTO(m.getCodigoMatricula(), m.getNomeCurso(), m.getDataInicio())).toList();
 
-        return new AlunoResponse(aluno.getId(), aluno.getNome(),  aluno.getTelefone(), aluno.getDataNascimento(),matriculaDTOS);
+        return new AlunoResponse(aluno.getId(), aluno.getNome(), aluno.getTelefone(), aluno.getDataNascimento(),
+                matriculaDTOS);
 
     }
 }

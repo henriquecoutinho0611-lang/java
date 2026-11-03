@@ -19,7 +19,7 @@ public class Empregado {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private BigDecimal salario;
+    private double salario;
     private boolean conducao;
     private int diasTrabalhados;
     private int mesesTrabalhados;

@@ -23,27 +23,29 @@ public class AlunoService {
     }
 
     @PostMapping()
-    public ResponseEntity<AlunoResponse> criar (@RequestBody AlunoRequest request){
+    public ResponseEntity<AlunoResponse> criar(@RequestBody AlunoRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(alunoService.salvar(request));
 
-
     }
+
     @GetMapping()
-    public List<AlunoResponse> listarTodos(){
+    public List<AlunoResponse> listarTodos() {
         return alunoService.listaTodos();
     }
+
     @GetMapping("{id}/matriculas")
-    public List<MatriculaDTO> listarMatriculas(@PathVariable Long id){
-      return alunoService.listarMatriculas(id);
+    public List<MatriculaDTO> listarMatriculas(@PathVariable Long id) {
+        return alunoService.listarMatriculas(id);
 
     }
+
     @PostMapping("{id}")
-public ResponseEntity<AlunoResponse> atualizar(@PathVariable Long id, @RequestBody AlunoRequest request){
-    return ResponseEntity.ok(alunoService.atualizar(id, request));
+    public ResponseEntity<AlunoResponse> atualizar(@PathVariable Long id, @RequestBody AlunoRequest request) {
+        return ResponseEntity.ok(alunoService.atualizar(id, request));
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> remover(@PathVariable Long id){
+    public ResponseEntity<Void> remover(@PathVariable Long id) {
         alunoService.remover(id);
         return ResponseEntity.noContent().build();
     }

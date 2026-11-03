@@ -11,99 +11,91 @@ public class Banco {
 
     public Connection connectio() {
 
-          Connection connection = null;
-         try{
-         connection = DriverManager.getConnection("jdbc:sqlite:bd_teste");
-        } catch(SQLException e){
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlite:bd_teste");
+        } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
-        return connection; 
+        return connection;
     }
 
+    public void insert(String nome, int largura, int altura, int profundidade,
+            String descricao, String obs) {
 
+        Connection connection = this.connectio();
 
-  public void insert(String nome, int largura, int altura, int profundidade,
-                   String descricao, String obs) {
+        try {
 
-    Connection connection = this.connectio();
+            criarTabela(connection);
 
-    try {
+            String sql = """
+                        INSERT INTO produtos
+                        (nome, largura, altura, profundidade, descricao, obs)
+                        VALUES (?, ?, ?, ?, ?, ?)
+                    """;
 
-        criarTabela(connection);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-        String sql = """
-            INSERT INTO produtos
-            (nome, largura, altura, profundidade, descricao, obs)
-            VALUES (?, ?, ?, ?, ?, ?)
-        """;
+            preparedStatement.setString(1, nome);
+            preparedStatement.setInt(2, largura);
+            preparedStatement.setInt(3, altura);
+            preparedStatement.setInt(4, profundidade);
+            preparedStatement.setString(5, descricao);
+            preparedStatement.setString(6, obs);
 
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.executeUpdate();
 
-        preparedStatement.setString(1, nome);
-        preparedStatement.setInt(2, largura);
-        preparedStatement.setInt(3, altura);
-        preparedStatement.setInt(4, profundidade);
-        preparedStatement.setString(5, descricao);
-        preparedStatement.setString(6, obs);
+        } catch (SQLException e) {
 
-        preparedStatement.executeUpdate();
-
-    } catch (SQLException e) {
-
-        System.err.println(e.getMessage());
+            System.err.println(e.getMessage());
+        }
     }
-}
 
- public void lista(){
+    public void lista() {
 
-      Connection connection = this.connectio();
+        Connection connection = this.connectio();
 
-      try{
+        try {
 
-          criarTabela(connection);
-          Statement statement = connection.createStatement();
-          statement.setQueryTimeout(30);
+            criarTabela(connection);
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);
 
-          ResultSet resultado = statement.executeQuery("SELECT * FROM produtos");
+            ResultSet resultado = statement.executeQuery("SELECT * FROM produtos");
 
-          while (resultado.next()){
-              System.out.println("------------------------------------------------");
-              System.out.println("id:"+ resultado.getInt("id"));
-              System.out.println("Nome:"+ resultado.getString("nome"));
-              System.out.println("altura:"+ resultado.getInt("altura"));
-              System.out.println("largura:"+ resultado.getInt("largura"));
-              System.out.println("Profundidade:"+ resultado.getInt("profundidade"));
-              System.out.println("obs:"+ resultado.getString("obs"));
-              System.out.println("descricao:"+ resultado.getString("descricao"));
-               System.out.println("------------------------------------------------");
-          }
+            while (resultado.next()) {
+                System.out.println("------------------------------------------------");
+                System.out.println("id:" + resultado.getInt("id"));
+                System.out.println("Nome:" + resultado.getString("nome"));
+                System.out.println("altura:" + resultado.getInt("altura"));
+                System.out.println("largura:" + resultado.getInt("largura"));
+                System.out.println("Profundidade:" + resultado.getInt("profundidade"));
+                System.out.println("obs:" + resultado.getString("obs"));
+                System.out.println("descricao:" + resultado.getString("descricao"));
+                System.out.println("------------------------------------------------");
+            }
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
+    }
 
-
-          } catch (SQLException e) {
-          throw new RuntimeException(e);
-      }
-
-  }
-
-  private void criarTabela(Connection connection) throws SQLException {
-      Statement statement = connection.createStatement();
-      statement.setQueryTimeout(30);
-      statement.executeUpdate("""
-          CREATE TABLE IF NOT EXISTS produtos (
-              id INTEGER PRIMARY KEY AUTOINCREMENT,
-              nome TEXT NOT NULL,
-              largura INTEGER NOT NULL,
-              altura INTEGER NOT NULL,
-              profundidade INTEGER NOT NULL,
-              descricao TEXT,
-              obs TEXT
-          )
-      """);
-  }
+    private void criarTabela(Connection connection) throws SQLException {
+        Statement statement = connection.createStatement();
+        statement.setQueryTimeout(30);
+        statement.executeUpdate("""
+                    CREATE TABLE IF NOT EXISTS produtos (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        nome TEXT NOT NULL,
+                        largura INTEGER NOT NULL,
+                        altura INTEGER NOT NULL,
+                        profundidade INTEGER NOT NULL,
+                        descricao TEXT,
+                        obs TEXT
+                    )
+                """);
+    }
 
 }
-
-
-
